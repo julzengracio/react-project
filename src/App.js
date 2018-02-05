@@ -5,11 +5,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
-class App extends Component {
+function TimeAndDate(props) {
+  return <h3>{props.date.toDateString()}{props.date.toLocaleTimeString()}</h3>;
+}
 
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      date: new Date(),
       articles: []
     };
   }
@@ -20,6 +24,21 @@ class App extends Component {
         this.setState({articles: res.data});
         console.log(this.state.articles);
       });
+
+    this.TimerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.TimerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
   }
 
   render() {
@@ -43,6 +62,7 @@ class App extends Component {
           <div className="panel panel-default">
             <div className="panel-heading">
               <h3 className="panel-title article-title">Articles</h3>
+              <TimeAndDate date = {this.state.date} />
             </div>
             <div class="panel-body">
               {/* <h4><Link to="/create"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Article</Link></h4> */}

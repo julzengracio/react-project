@@ -1,3 +1,7 @@
+## NBAInsider - React 4th Year Project
+
+This project is an Article-based web application that can perform the basic CRUD operation. It is built with the technologies included in the MERN development stack.
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
