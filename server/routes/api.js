@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const article = require('../models/article');
 
+// MongoDb url
 const url = "mongodb://@localhost:27017";
 
 let db;
@@ -19,6 +20,7 @@ mongoose.connect(url, function(err, database) {
     console.log("Connected successfully to server");
 });
 
+// Get all the articles
 router.get('/articles', function(req, res) {
     article.find({})
         .exec(function(err, articles) {
@@ -32,6 +34,7 @@ router.get('/articles', function(req, res) {
         });
 });
 
+// Get a single article
 router.get('/articles/:id', function(req, res) {
     console.time('View load time');
     console.log('Requesting a specific article');
@@ -47,6 +50,7 @@ router.get('/articles/:id', function(req, res) {
     console.timeEnd('View load time');
 });
 
+// Create
 router.post('/create', function(req, res) {
     console.time('Create load time');
     console.log('Posting an Article');
@@ -64,6 +68,7 @@ router.post('/create', function(req, res) {
     console.timeEnd('Create load time');
 });
 
+// Update
 router.post('/update/:id', function(req, res) {
     console.log('Updating an Article');
 
@@ -80,6 +85,7 @@ router.post('/update/:id', function(req, res) {
         });
 });
 
+// Delete
 router.get('/delete/:id', function(req, res) {
     console.log('Deleting an article');
     article.findByIdAndRemove(req.params.id)
