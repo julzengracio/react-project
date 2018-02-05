@@ -101,17 +101,21 @@ router.get('/delete/:id', function(req, res) {
 
 router.post('/test', function(req, res) {
     console.log('Test function');
-    var newArticle = new article();
-    newArticle.title = req.body.title;
-    newArticle.content = req.body.content;
-    newArticle.save(function(err, article) {
-        if(err) {
-            console.log('Error inserting the article');
-            console.log(err);
-        } else {
-            res.json(article);
-        }
-    });
+    console.time('Stress Test')
+    for (let i = 0 ; i < 5; i++){
+        var newArticle = new article();
+        newArticle.title = req.body.title;
+        newArticle.content = req.body.content;
+        newArticle.save(function(err, article) {
+            if(err) {
+                console.log('Error inserting the article');
+                console.log(err);
+            } else {
+                res.json(article);
+            }
+        });
+    }
+    console.time('Stress Test')
 });
 
 module.exports = router;

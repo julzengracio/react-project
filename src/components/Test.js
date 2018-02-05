@@ -8,13 +8,11 @@ class Test extends Component {
 
   constructor() {
     super();
-    for(let i = 0; i < 5; i++) {
       this.state = {
         id: '',
-        title: `Article Title ${i}`,
-        content: `Article content ${i}`,
+        title: 'Article Title',
+        content: 'Article content',
       };
-    }
   }
 
   onSubmit = (e) => {

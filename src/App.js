@@ -6,7 +6,8 @@ import axios from 'axios';
 import './App.css';
 
 function TimeAndDate(props) {
-  return <h3>{props.date.toDateString()}{props.date.toLocaleTimeString()}</h3>;
+  return <h3>{props.date.toDateString()}<br />
+             {props.date.toLocaleTimeString()}</h3>;
 }
 
 class App extends Component {
