@@ -2,6 +2,15 @@
 
 This project is an Article-based web application that can perform the basic CRUD operation. It is built with the technologies included in the MERN development stack.
 
+## Install, build and run the project
+ - Run `npm install` to install the dependencies. 
+ - Run `npm run build` to build the project.
+ - Run `node server.js` to run the project.
+ - Open a browser and navigate to `http://localhost:3001/` to view the project.
+
+
+## Create React App CLI
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
