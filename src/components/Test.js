@@ -10,8 +10,8 @@ class Test extends Component {
     super();
       this.state = {
         id: '',
-        title: 'Article Title',
-        content: 'Article content',
+        title: 'Test Article Title',
+        content: 'Test Article content',
       };
   }
 

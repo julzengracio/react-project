@@ -99,10 +99,10 @@ router.get('/delete/:id', function(req, res) {
         });
 });
 
+// Create multiple articles
 router.post('/test', function(req, res) {
-    console.log('Test function');
     console.time('Stress Test')
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0 ; i < 5; i++) {
         var newArticle = new article();
         newArticle.title = req.body.title;
         newArticle.content = req.body.content;
@@ -111,11 +111,12 @@ router.post('/test', function(req, res) {
                 console.log('Error inserting the article');
                 console.log(err);
             } else {
-                res.json(article);
+                console.log('success');
             }
         });
     }
-    console.time('Stress Test')
+    console.timeEnd('Stress Test')
+    res.sendStatus(201);
 });
 
 module.exports = router;
