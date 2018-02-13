@@ -27,6 +27,7 @@ body {
   font-size: large;
 }
 
+/* Article title styling */
 .article-title {
   color: #000;
   font-size: 18px;
@@ -35,35 +36,67 @@ body {
   margin-bottom: 20px;
 }
 
+/* Article title styling on mouse hover */
 .article-title a:hover {
   text-decoration: none;
 }
 
+/* read more button text styling */
 .read-more {
   color: #fff;
 }
 
+/* read more button styling */
 .read-more-btn {
   float: right;
 }
 
+/* content styling */
 .content {
   text-align: left;
   padding: 0px 20px 20px 20px;
 }
 
+/* social media icon styling */
 .logo {
   height: 50px;
   width: 50px;
   margin: 5px;
 }
 
+/* footer styling */
 .custom-footer {
   /* background: #222; */
   color: #9d9d9d;
   margin-top: 50px;
   text-align: center;
   font-size: 18px;
+}
+
+/* Image preview and file input styling */
+.previewText {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.imgPreview {
+  text-align: center;
+  height: 280px;
+  border: 2px solid #ccc;
+  margin-bottom: 20px;
+  margin-top: 20px
+}
+
+.fileInput {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+}
+
+.imgPreview img {
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes App-logo-spin {

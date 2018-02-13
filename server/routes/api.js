@@ -102,7 +102,7 @@ router.get('/delete/:id', function(req, res) {
 // Create multiple articles
 router.post('/test', function(req, res) {
     console.time('Stress Test')
-    for (let i = 0 ; i < 5; i++) {
+    for (let i = 0 ; i < 20; i++) {
         var newArticle = new article();
         newArticle.title = req.body.title;
         newArticle.content = req.body.content;

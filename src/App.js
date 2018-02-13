@@ -88,7 +88,7 @@ class App extends Component {
                         {article.content.slice(0, 350)}
                       </div>
                       <div className="row content">
-                        <button type="button" className="btn btn-primary read-more-btn"><Link to={`/show/${article._id}`} className="read-more">Read more</Link></button>
+                      <Link to={`/show/${article._id}`} className="read-more"><button type="button" className="btn btn-primary read-more-btn">Read more</button></Link>
                       </div>
                     </td>
                   </tr>

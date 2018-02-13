@@ -4,15 +4,21 @@ import axios from 'axios';
 import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
 
+
+
 class Create extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: '',
       title: '',
       content: '',
+      file: '',
+      imagePreviewUrl: ''
     };
+
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
   onChange = (e) => {
     const state = this.state
@@ -31,8 +37,33 @@ class Create extends Component {
       });
   }
 
+  handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   render() {
     const { title, content } = this.state;
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<img src={imagePreviewUrl} />);
+    } else {
+      $imagePreview = (
+        <div className="previewText">Select an Image for preview</div>
+      );
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -58,12 +89,17 @@ class Create extends Component {
             <div class="panel-body">
               <h4><Link to="/"><span className="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back to Article List</Link></h4>
               <form onSubmit={this.onSubmit}>
-                <div class="form-group">
-                  <label for="title">Title:</label>
+                <div className="form-group">
+                  <input type="file" className="col-md-6 col-md-offset-3 fileInput" onChange={this.handleImageChange} />
+                  <div className="imgPreview col-md-6 col-md-offset-3">{$imagePreview}</div>
+                </div>
+                <p></p>
+                <div className="form-group">
+                  {/* <label for="title">Title:</label> */}
                   <input type="text" className="form-control" name="title" value={title} onChange={this.onChange} placeholder="Title" />
                 </div>
-                <div class="form-group">
-                  <label for="content">Content:</label>
+                <div className="form-group">
+                  {/* <label for="content">Content:</label> */}
                   <textArea className="form-control" name="content" onChange={this.onChange} placeholder="Content" cols="80" rows="30">{content}</textArea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
