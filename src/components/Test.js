@@ -12,22 +12,29 @@ class Test extends Component {
         id: '',
         title: 'Test Article Title',
         content: 'Test Article content',
+        number: 1
       };
+  }
+  
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   }
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, content } = this.state;
+    const { title, content, number } = this.state;
 
-    axios.post('/api/test', { title, content })
+    axios.post('/api/test', { title, content, number })
       .then((result) => {
         this.props.history.push("/")
       });
   }
 
   render() {
-    const { title, content } = this.state;
+    const { title, content, number } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -53,6 +60,10 @@ class Test extends Component {
             <div class="panel-body">
               <h4><Link to="/"><span className="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back to Article List</Link></h4>
               <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label for="title">Specify how many 'Test Articles' you want to post:</label>
+                  <input type="number" className="form-control" name="number" value={number} onChange={this.onChange}/>
+                </div>
                 <button type="submit" class="btn btn-primary">Test</button>
               </form>
             </div>

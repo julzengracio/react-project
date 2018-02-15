@@ -52,6 +52,7 @@ class Show extends Component {
               </h3>
             </div>
             <div class="panel-body">
+            {this.state.articles.img}
               <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back to Article List</Link></h4>
               <dl>
                 <dt>Content</dt>

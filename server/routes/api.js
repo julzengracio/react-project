@@ -54,7 +54,7 @@ router.get('/articles/:id', function(req, res) {
 router.post('/create', function(req, res) {
     console.time('Create load time');
     console.log('Posting an Article');
-    var newArticle = new article();
+    let newArticle = new article();
     newArticle.title = req.body.title;
     newArticle.content = req.body.content;
     newArticle.save(function(err, article) {
@@ -102,8 +102,8 @@ router.get('/delete/:id', function(req, res) {
 // Create multiple articles
 router.post('/test', function(req, res) {
     console.time('Stress Test')
-    for (let i = 0 ; i < 20; i++) {
-        var newArticle = new article();
+    for (let i = 0 ; i < req.body.number; i++) {
+        let newArticle = new article();
         newArticle.title = req.body.title;
         newArticle.content = req.body.content;
         newArticle.save(function(err, article) {

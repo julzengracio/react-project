@@ -5,7 +5,6 @@ import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
 
 
-
 class Create extends Component {
 
   constructor(props) {
@@ -14,7 +13,7 @@ class Create extends Component {
       id: '',
       title: '',
       content: '',
-      file: '',
+      img: '',
       imagePreviewUrl: ''
     };
 
@@ -41,16 +40,16 @@ class Create extends Component {
     e.preventDefault();
 
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let img = e.target.files[0];
 
     reader.onloadend = () => {
       this.setState({
-        file: file,
+        img: img,
         imagePreviewUrl: reader.result
       });
     }
 
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(img)
   }
 
   render() {
