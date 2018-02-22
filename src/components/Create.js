@@ -13,12 +13,13 @@ class Create extends Component {
       id: '',
       title: '',
       content: '',
-      img: '',
+      file: {name: null},
       imagePreviewUrl: ''
     };
 
     this.handleImageChange = this.handleImageChange.bind(this);
   }
+
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value;
@@ -27,29 +28,44 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
+   
     const { title, content } = this.state;
-
-    axios.post('/api/create', { title, content })
+    const { file } = this.state;
+    this.fileUpload(file);
+    axios.post('/api/create', { title, content } )
       .then((result) => {
         this.props.history.push("/")
       });
   }
 
+  fileUpload(file) {
+    const url = 'http://localhost:3001/api/upload';
+    const formData = new FormData();
+    formData.append('file', file)
+
+    fetch (url, {
+      mode: 'no-cors',
+      method: "POST",
+      body: formData
+    })
+    //.then(res => { this.getImageData(); });
+  }
+
+  // image preview after choosing a file
   handleImageChange(e) {
     e.preventDefault();
 
     let reader = new FileReader();
-    let img = e.target.files[0];
+    let file = e.target.files[0];
 
     reader.onloadend = () => {
       this.setState({
-        img: img,
+        file: file,
         imagePreviewUrl: reader.result
       });
     }
 
-    reader.readAsDataURL(img)
+    reader.readAsDataURL(file)
   }
 
   render() {

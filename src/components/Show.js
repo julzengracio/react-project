@@ -2,14 +2,23 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
+import ImageCard from './ImageCard';
+
+const fileUrl = 'http://localhost:3001/api/file';
 
 class Show extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      articles: {}
+      articles: {},
+      images: []
     };
+    this.getImageData = this.getImageData.bind(this);
+  }
+
+  componentWillMount() {
+    this.getImageData();
   }
 
   componentDidMount() {
@@ -18,6 +27,23 @@ class Show extends Component {
         this.setState({ articles: res.data });
         console.log(this.state.articles);
       });
+  }
+
+  getImageData() {
+    //const url = 'http://localhost:3001/api/file'
+
+    fetch(fileUrl)
+      .then(response => {
+        if(response.ok) return response.json();
+        return [];
+      })
+      .then(data => {
+        this.setState({
+          images: data
+        });
+        console.log(data);
+      });
+     
   }
 
   delete(id){
@@ -29,6 +55,14 @@ class Show extends Component {
   }
 
   render() {
+    let images;
+    if(this.state.images.length > 0){
+      images = this.state.images.map( i => {
+        return(
+          <ImageCard key={i._id} src={fileUrl+i.filename} alt={i.metadata.originalname}/>
+        );
+      });
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -52,7 +86,7 @@ class Show extends Component {
               </h3>
             </div>
             <div class="panel-body">
-            {this.state.articles.img}
+              {images}
               <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back to Article List</Link></h4>
               <dl>
                 <dt>Content</dt>

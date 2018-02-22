@@ -2,23 +2,53 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const article = require('../models/article');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const crypto = require('crypto');
+const path = require('path');
 
 // MongoDb url
-const url = "mongodb://@localhost:27017";
+const dburl = "mongodb://@localhost:27017/articles";
 
-let db;
+let dbase;
 
 // Connect to server
 mongoose.Promise = global.Promise;
-mongoose.connect(url, function(err, database) {
+mongoose.connect(dburl, function(err, database) {
     if(err){
         console.log('Error connecting')
         console.log(err);
         return;
     }
-    db = database;
+    dbase = database;
     console.log("Connected successfully to server");
 });
+
+const conn = mongoose.connection;
+Grid.mongo = mongoose.mongo;
+const gfs = Grid(conn.db);
+// console.log(gfs);
+
+// storage set up using multer-gridfs-storage
+const storage = new GridFsStorage({
+    url : dburl,
+    file: (req, file) => {
+        if (file.mimetype === 'image/jpeg') {
+          return {
+            filename: file.originalname,
+            bucketName: 'images'
+          };
+        } else {
+          return null;
+        }
+      }
+});
+
+// multer settings for single upload
+let upload = multer({
+    storage: storage
+}).single('file');
 
 // Get all the articles
 router.get('/articles', function(req, res) {
@@ -50,6 +80,42 @@ router.get('/articles/:id', function(req, res) {
     console.timeEnd('View load time');
 });
 
+router.get('/file', function(req, res){
+    gfs.collection('images'); //set collection name to lookup into
+  
+    gfs.files.find().toArray(function(err, files){
+      if(!files || files.length === 0){
+        return res.status(404).json({
+          responseCode: 1,
+          responseMessage: "error"
+        });
+      }
+      res.send(JSON.stringify(files));
+    });
+  });
+
+router.get('/file/:filename', function(req, res){
+    gfs.collection('images'); //collection name for finding the files
+
+    // check if file exist
+    gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
+        if(!files || files.length === 0){
+            return res.status(404).json({
+                responseCode: 1,
+                responseMessage: "error"
+            });
+        }
+        // Create read stream
+        let readstream = gfs.createReadStream({
+            filename: files[0].filename,
+            root: "images"
+        });
+        // set content type
+        res.set('Content-Type', files[0].contentType)
+        return readstream.pipe(res);
+    });
+});
+
 // Create
 router.post('/create', function(req, res) {
     console.time('Create load time');
@@ -66,6 +132,17 @@ router.post('/create', function(req, res) {
         }
     });
     console.timeEnd('Create load time');
+});
+
+// upload image
+router.post('/upload', function(req, res) {
+    upload(req, res, function(err){
+        if(err){
+            res.json({error_code:1,err_desc:err});
+            return;
+        }
+        res.json({error_code:0, err_desc:null});
+    });
 });
 
 // Update
