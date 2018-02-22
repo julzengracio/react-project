@@ -13,6 +13,7 @@ class Create extends Component {
       id: '',
       title: '',
       content: '',
+      filename: '',
       file: {name: null},
       imagePreviewUrl: ''
     };
@@ -28,11 +29,11 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-   
-    const { title, content } = this.state;
+
+    const { title, content, filename } = this.state;
     const { file } = this.state;
     this.fileUpload(file);
-    axios.post('/api/create', { title, content } )
+    axios.post('/api/create', { title, content, filename } )
       .then((result) => {
         this.props.history.push("/")
       });
@@ -42,6 +43,7 @@ class Create extends Component {
     const url = 'http://localhost:3001/api/upload';
     const formData = new FormData();
     formData.append('file', file)
+    formData.append('filename', file.name)
 
     fetch (url, {
       mode: 'no-cors',
@@ -57,10 +59,12 @@ class Create extends Component {
 
     let reader = new FileReader();
     let file = e.target.files[0];
+    console.log(file.name);
 
     reader.onloadend = () => {
       this.setState({
         file: file,
+        filename: file.name,
         imagePreviewUrl: reader.result
       });
     }

@@ -5,8 +5,6 @@ const article = require('../models/article');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
-const crypto = require('crypto');
-const path = require('path');
 
 // MongoDb url
 const dburl = "mongodb://@localhost:27017/articles";
@@ -123,6 +121,7 @@ router.post('/create', function(req, res) {
     let newArticle = new article();
     newArticle.title = req.body.title;
     newArticle.content = req.body.content;
+    newArticle.filename = req.body.filename;
     newArticle.save(function(err, article) {
         if(err) {
             console.log('Error inserting the article');
@@ -188,7 +187,7 @@ router.post('/test', function(req, res) {
                 console.log('Error inserting the article');
                 console.log(err);
             } else {
-                console.log('success');
+                // console.log('success');
             }
         });
     }

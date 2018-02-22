@@ -4,7 +4,7 @@ import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
 import ImageCard from './ImageCard';
 
-const fileUrl = 'http://localhost:3001/api/file';
+const fileUrl = 'http://localhost:3001/api/file/';
 
 class Show extends Component {
 
@@ -30,8 +30,6 @@ class Show extends Component {
   }
 
   getImageData() {
-    //const url = 'http://localhost:3001/api/file'
-
     fetch(fileUrl)
       .then(response => {
         if(response.ok) return response.json();
@@ -56,13 +54,15 @@ class Show extends Component {
 
   render() {
     let images;
-    if(this.state.images.length > 0){
-      images = this.state.images.map( i => {
-        return(
-          <ImageCard key={i._id} src={fileUrl+i.filename} alt={i.metadata.originalname}/>
-        );
+
+    if(this.state.images.length > 0 && this.state.articles.title === this.state.articles.title) {
+      images = this.state.images
+      .filter( (fn) => fn.filename === this.state.articles.filename)
+      .map( i => {
+        return <ImageCard key={i._id} src={fileUrl+i.filename}/>;
       });
     }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -86,10 +86,9 @@ class Show extends Component {
               </h3>
             </div>
             <div class="panel-body">
-              {images}
               <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back to Article List</Link></h4>
+              <div>{images}</div>
               <dl>
-                <dt>Content</dt>
                 <dd>{this.state.articles.content}</dd>
               </dl>
               <Link to={`/edit/${this.state.articles._id}`} class="btn btn-success">Edit</Link>&nbsp;
