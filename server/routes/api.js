@@ -64,8 +64,7 @@ router.get('/articles', function(req, res) {
 
 // Get a single article
 router.get('/articles/:id', function(req, res) {
-    console.time('View load time');
-    console.log('Requesting a specific article');
+    console.time('Requesting a specific article');
     article.findById(req.params.id)
         .exec(function(err, article){
             if(err){
@@ -75,7 +74,7 @@ router.get('/articles/:id', function(req, res) {
                 res.json(article);
             }
         });
-    console.timeEnd('View load time');
+    console.timeEnd('Requesting a specific article');
 });
 
 router.get('/file', function(req, res){
@@ -116,8 +115,7 @@ router.get('/file/:filename', function(req, res){
 
 // Create
 router.post('/create', function(req, res) {
-    console.time('Create load time');
-    console.log('Posting an Article');
+    console.time('Article created');
     let newArticle = new article();
     newArticle.title = req.body.title;
     newArticle.content = req.body.content;
@@ -130,7 +128,7 @@ router.post('/create', function(req, res) {
             res.json(article);
         }
     });
-    console.timeEnd('Create load time');
+    console.timeEnd('Article created');
 });
 
 // upload image
@@ -163,7 +161,6 @@ router.post('/update/:id', function(req, res) {
 
 // Delete
 router.get('/delete/:id', function(req, res) {
-    console.log('Deleting an article');
     article.findByIdAndRemove(req.params.id)
         .exec(function(err, article){
             if(err){
@@ -171,6 +168,7 @@ router.get('/delete/:id', function(req, res) {
                 console.log(err);
             } else {
                 res.json(article);
+                console.log('Article Deleted');
             }
         });
 });

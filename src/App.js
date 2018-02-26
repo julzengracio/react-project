@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
+const fileUrl = 'http://localhost:3001/api/file/';
+
+
 function TimeAndDate(props) {
   return <h3>{props.date.toDateString()}<br />
              {props.date.toLocaleTimeString()}</h3>;
@@ -78,7 +81,7 @@ class App extends Component {
                   {this.state.articles.map(article =>
                   <tr>
                     <td>
-                    <img src={ require('./assets/nba-logo.jpg') } className="img-responsive" />
+                    <img src={ fileUrl+article.filename } className="img-responsive" />
                     </td>
                     <td>
                       <div className="article-title">
