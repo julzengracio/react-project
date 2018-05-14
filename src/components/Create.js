@@ -40,7 +40,7 @@ class Create extends Component {
   }
 
   fileUpload(file) {
-    const url = 'http://localhost:3001/api/upload';
+    const url = 'https://mighty-reaches-67795.herokuapp.com/api/upload';
     const formData = new FormData();
     formData.append('file', file)
     formData.append('filename', file.name)
