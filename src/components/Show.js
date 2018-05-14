@@ -4,7 +4,7 @@ import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
 import ImageCard from './ImageCard';
 
-const fileUrl = 'http://localhost:3001/api/file/';
+const fileUrl = 'https://mighty-reaches-67795.herokuapp.com/api/file/';
 
 class Show extends Component {
 
