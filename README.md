@@ -10,9 +10,10 @@ This project was developed based on my 4th year research 'A comparison between A
  - Open a browser and navigate to `http://localhost:3001/` to view the project.
  
 ## App Features
- - Axios is used to upload the articles to the database.
- - GridFS is used to upload the image to a MongoDb.
- - React JavaScript.
+ - [Axios](https://www.npmjs.com/package/axios) is used to upload the articles to the database.
+ - [GridFS](https://docs.mongodb.com/manual/core/gridfs/) is used to upload the image to a MongoDb.
+ - [Bootstrap 3](http://getbootstrap.com/docs/3.3/).
+ - [React JavaScript](https://reactjs.org/).
  
 ## Live version
  - Click [here](https://mighty-reaches-67795.herokuapp.com/) to see the live version of the app.
