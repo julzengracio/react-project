@@ -1,6 +1,6 @@
 ## NBAInsider - React 4th Year Project
 
-This project is an article Web Application that can perform the basic CRUD operation. It is built with the technologies included in the MERN development stack.
+This project was developed based on my 4th year research 'A comparison between Angular 2 and React JavaScript Frameworks'. The application is an article website that can perform the basic CRUD operation. It is built with the technologies included in the MERN development stack.
 
 ## Installing and running the project.
  - MongoDb, Node.js and Express.js are required to run this project.
