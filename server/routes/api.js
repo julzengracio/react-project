@@ -7,7 +7,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 
 // MongoDb url
-const dburl = "mongodb://@localhost:27017/articles";
+const dburl = "mongodb://adminuser:Passw0rd@ds255329.mlab.com:55329/nbainsider";
 
 let dbase;
 
